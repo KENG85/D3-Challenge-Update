@@ -1,0 +1,14 @@
+{
+  "name": "111fdb0bd7d09a14",
+  "main": "111fdb0bd7d09a14@357.js",
+  "version": "357.0.0",
+  "homepage": "https://observablehq.com/d/111fdb0bd7d09a14",
+  "author": {
+    "name": "keng85",
+    "url": "https://observablehq.com/@keng85"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}
