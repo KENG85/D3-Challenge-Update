@@ -97,12 +97,12 @@ d3.csv("assets/data/data.csv")
 
     // Create event listeners to display and hide the tooltip
 
-    abbrGroup.on("mouseover", function(data) {
-      toolTip.show(data, this);
+    abbrGroup.on("mouseover", function(d) {
+      toolTip.show(d, this);
     })
       // onmouseout event
-      .on("mouseout", function(data, index) {
-        toolTip.hide(data);
+      .on("mouseout", function(d, index) {
+        toolTip.hide(d);
       });
 
     // Create axes labels
