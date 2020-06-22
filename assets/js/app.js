@@ -28,22 +28,21 @@ d3.csv("assets/data/data.csv")
     // Parse Data/Cast as numbers
 
     data.forEach(function(d) {
-      d.poverty = +data.poverty;
-      //d.povertyMoe = +data.povertyMoe;
+      d.poverty = +d.poverty;
       d.age = +d.age;
       d.income = +d.income;
       d.obesity = +d.obesity;
       d.smokes = +d.smokes;
     });
 
-    // Create scale functions
+    //  scale functions
 
     var xLinearScale = d3.scaleLinear()
       .domain([d3.min(data, d => d.income)-1, d3.max(data, d => d.income)])
       .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
-      .domain([d3.min(healthData, d => d.obesity)-1, d3.max(healthData, d => d.obesity)])
+      .domain([d3.min(data, d => d.obesity)-1, d3.max(data, d => d.obesity)])
       .range([height, 0]);
 
     // Create axis functions
