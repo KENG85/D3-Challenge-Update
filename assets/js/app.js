@@ -22,7 +22,7 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Import Data
-d3.csv("https://raw.github.com/KENG85/D3-Challenge-Update/master/assets/data/data.csv")
+d3.csv("//rawgithub.com/KENG85/D3-Challenge-Update/master/assets/data/data.csv")
   .then(function(data) {
   	console.log(data)
     // Parse Data/Cast as numbers
