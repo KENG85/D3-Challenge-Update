@@ -28,6 +28,7 @@ d3.csv("./data/data.csv")
     // Parse Data/Cast as numbers
 
     data.forEach(function(d) {
+      d.state = d.state;
       d.poverty = +d.poverty;
       d.age = +d.age;
       d.income = +d.income;
@@ -71,16 +72,16 @@ d3.csv("./data/data.csv")
     .attr("fill", "blue")
     .attr("opacity", "0.8");
 
-    var abbrGroup = chartGroup.selectAll("label")
+    var labelGroup = chartGroup.selectAll("label")
     .data(data)
     .enter()
     .append("text")
-    .text(d => d.abbr)
+    .text(d => d.state)
     .attr("font-size",9)
     .attr("font-weight","bold")
     .attr("fill", "white")
-    .attr("x", d => xLinearScale(d.income)-7)
-    .attr("y", d => yLinearScale(d.obesity)+4);
+    .attr("x", d => xLinearScale(d.income)-5)
+    .attr("y", d => yLinearScale(d.obesity)+5);
    
     //  tool tip
 
@@ -88,7 +89,7 @@ d3.csv("./data/data.csv")
       .attr("class", "tooltip")
       .offset([80, -60])
       .html(function(d) {
-        return (`${d.abbr}<br>Income: ${d.income}%<br> Obesity: ${d.obesity}%`);
+        return (`${d.state}<br>Income: ${d.income}%<br> Obesity: ${d.obesity}%`);
       });
 
     // call tooltip in the chart
@@ -97,7 +98,7 @@ d3.csv("./data/data.csv")
 
     // Create event listeners to display and hide the tooltip
 
-    abbrGroup.on("mouseover", function(d) {
+    labelGroup.on("mouseover", function(d) {
       toolTip.show(d, this);
     })
       // onmouseout event
