@@ -27,6 +27,7 @@ d3.csv("assets/data/data.csv")
     //import data & type 
     data.forEach(function(d) {
       d.abbr = d.abbr;
+      d.state = d.state;
       d.poverty = +d.poverty;
       d.healthcare = +d.healthcare;
     });
