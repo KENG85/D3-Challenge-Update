@@ -78,7 +78,7 @@ d3.csv("assets/data/data.csv")
       .style("opacity", 1)
       .offset([80, -60])
       .html(function(d) {
-        return (`${d.abbr}<br>In Poverty: ${d.poverty}%<br>No Healthcare: ${d.healthcare}%`);
+        return (`${d.state}<br>In Poverty: ${d.poverty}%<br>No Healthcare: ${d.healthcare}%`);
       });
 
 
