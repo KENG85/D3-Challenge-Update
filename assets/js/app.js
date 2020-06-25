@@ -22,7 +22,7 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Import Data
-d3.csv("https://raw.github.com/keng85/d3-challenge-update/master/assets/data/data.csv")
+d3.csv("assets/data/data.csv")
   .then(function(data) {
   	console.log(data)
     // Parse Data/Cast as numbers
@@ -31,6 +31,7 @@ d3.csv("https://raw.github.com/keng85/d3-challenge-update/master/assets/data/dat
       d.abbr = d.abbr;
       d.poverty = +d.poverty;
       d.healthcare = +d.healthcare;
+      d.state = d.state;
     });
 
     //  scale functions
@@ -62,62 +63,50 @@ d3.csv("https://raw.github.com/keng85/d3-challenge-update/master/assets/data/dat
     var circlesGroup = chartGroup.selectAll("circle").data(data).enter()
     circlesGroup
     .append("circle")
-    .attr("cx", d => xLinearScale(d.income))
-    .attr("cy", d => yLinearScale(d.obesity))
+    .attr("cx", d => xLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", "10")
-    .attr("fill", "blue")
-    .attr("opacity", "0.8");
-
-    circlesGroup.append("text").text(function(d){
-      return d.abbr;
-    }).attr("dx", d => xLinearScale(d.poverty))
-    .attr("dy", d => yLinearScale(d.healthcare)+10/2.5)
-    .attr("font-size","9")
-    .attr("class","stateText")
-    .on("mouseover", function(data, index) {
-      
-      toolTip.show(data,this);
-    d3.select(this).style("stroke","#323232")
-    .style("stroke-width","10")
-    })
+    .attr("fill", "lightblue")
+    .attr("opacity", "0.8")
     .on("mouseout", function(data, index) {
-        toolTip.hide(data,this)
-     d3.select(this).style("stroke","#e3e3e3")
+      toolTip.hide(data);
+
+    var stateGroup = chartGroup.selectAll("label")
+    .data(data)
+    .enter()
+    .append("text")
+    .text(d => d.abbr)
+    .attr("font-size",9)
+    .attr("font-weight","bold")
+    .attr("fill", "white")
+    .attr("x", d => xLinearScale(d.poverty)-7)
+    .attr("y", d => yLinearScale(d.healthcare)+4);
+
+    // circlesGroup.append("text").text(function(d){
+    //   return d.abbr;
+    // }).attr("dx", d => xLinearScale(d.poverty))
+    // .attr("dy", d => yLinearScale(d.healthcare)+10/2.5)
+    // .attr("font-size","9")
+    // .attr("class","stateText")
+ 
+    var toolTip = d3.tip()
+    .attr("class", "tooltip")
+    .offset([80, -60])
+    .html(function(d) {
+      return (`${d.state}<br>Poverty: ${d.poverty}%<br> Healthcare: ${d.healthcare}%`)
     });
 
-    // var labelGroup = chartGroup.selectAll("label")
-    // // .data(data)
-    // .enter()
-    // .append("text")
-    // .text(d => d.abbr)
-    // .attr("font-size",9)
-    // .attr("font-weight","bold")
-    // .attr("fill", "white")
-    // .attr("x", d => xLinearScale(d.income)-5)
-    // .attr("y", d => yLinearScale(d.obesity)+5);
-   
-    //  tool tip
+  chartGroup.call(stateGroup);
 
-    var toolTip = d3.tip()
-      .attr("class", "tooltip")
-      .offset([80, -60])
-      .html(function(d) {
-        return (`${d.state}<br>Poverty: ${d.poverty}%<br> Healthcare: ${d.healthcare}%`);
-      });
-
-    // call tooltip in the chart
+  circlesGroup.on("mouseover", function(data) {
+    toolTip.show(data, this)
+  })
+    // onmouseout event
+    .on("mouseout", function(data, index) {
+      toolTip.hide(data);
+    });
 
     chartGroup.call(toolTip);
-
-    // Create event listeners to display and hide the tooltip
-
-    // labelGroup.on("mouseover", function(d) {
-    //   toolTip.show(d, this);
-    // })
-    //   // onmouseout event
-    //   .on("mouseout", function(d, index) {
-    //     toolTip.hide(d);
-    //   });
 
     // Create axes labels
     chartGroup.append("text")
